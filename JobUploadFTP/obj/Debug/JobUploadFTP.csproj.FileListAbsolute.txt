@@ -1,0 +1,9 @@
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\bin\Debug\JobUploadFTP.exe.config
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\bin\Debug\JobUploadFTP.exe
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\bin\Debug\JobUploadFTP.pdb
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.csproj.AssemblyReference.cache
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.ProjectInstaller.resources
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.csproj.GenerateResource.cache
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.csproj.CoreCompileInputs.cache
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.exe
+C:\Loymark\Subway\JobUploadFTP\JobUploadFTP\obj\Debug\JobUploadFTP.pdb
