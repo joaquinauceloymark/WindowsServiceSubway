@@ -6,6 +6,8 @@ using System.Configuration;
 using System;
 using System.Linq;
 using System.Diagnostics;
+using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace JobUploadFTP
 {
@@ -13,7 +15,6 @@ namespace JobUploadFTP
     {
         private Timer _timer;
         public EventLog eventLog;
-
         public Service1()
         {
             InitializeComponent();
@@ -41,6 +42,44 @@ namespace JobUploadFTP
 
         private void UploadFilesToFtp()
         {
+
+            string _connectionString = ConfigurationManager.AppSettings["connString"];
+            string fechaHoy = DateTime.Now.ToString();
+
+            fechaHoy = "SNF_" + fechaHoy.Replace("/", "-").Replace(":", "_").Replace(" ", "_");
+
+            if (fechaHoy.Contains("PM") || fechaHoy.Contains("AM"))
+            {
+                fechaHoy = fechaHoy.Replace("_PM", "").Replace("_AM", "");
+                fechaHoy = fechaHoy.Trim();
+            }
+
+            DataTable dataTable = new DataTable();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand("sp_GetFactRest", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                connection.Open();
+                adapter.Fill(dataTable);
+            }
+
+            string directoryPath = ConfigurationManager.AppSettings["SourceFolder"];
+            string filePath = Path.Combine(directoryPath, fechaHoy + ".dat");
+
+            Directory.CreateDirectory(directoryPath);
+
+            using (StreamWriter sw = new StreamWriter(filePath, false))
+            {
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    var fields = row.ItemArray.Select(field => field.ToString());
+                    sw.WriteLine(string.Join(",", fields));
+                }
+            }
+
             string ftpServer = ConfigurationManager.AppSettings["FtpServer"];
             string ftpUser = ConfigurationManager.AppSettings["FtpUser"];
             string ftpPassword = ConfigurationManager.AppSettings["FtpPassword"];
